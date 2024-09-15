@@ -36,8 +36,7 @@ const init = () => {
     state.boredom = 0;
     state.hunger = 0;
     state.sleepiness = 0;
-    runGame();
-    //timer = setInterval(runGame(), 2000);
+    timer = setInterval(runGame, 2000);
 };
 const runGame = () => {
     updateStates();
@@ -45,24 +44,24 @@ const runGame = () => {
     render();
 };
 const updateStates = () => {
-    state.boredom = Math.floor(Math.random() * 4);
-    state.hunger = Math.floor(Math.random() * 4);
-    state.sleepiness = Math.floor(Math.random() * 4);
+    state.boredom += Math.floor(Math.random() * 4);
+    state.hunger += Math.floor(Math.random() * 4);
+    state.sleepiness += Math.floor(Math.random() * 4);
 };
 const checkGameOver = () => {
-    if (state.boredom >= 3 || state.hunger >= 10 || state.sleepiness >= 10) {
+    if (state.boredom >= 10 || state.hunger >= 10 || state.sleepiness >= 10) {
         gameOver = true;
     };
 };
 const render = () => {
-    if (gameOver === true) {
-        //clearInterval(timer);
-      gameMessageElm.classList.remove('hidden');
-      resetBtnElm.classList.remove('hidden');
-    };
     boredomStatElm.textContent = state.boredom;
     hungerStatElm.textContent = state.hunger;
     sleepStatElm.textContent = state.sleepiness;
+    if (gameOver === true) {
+      clearInterval(timer);
+      gameMessageElm.classList.remove('hidden');
+      resetBtnElm.classList.remove('hidden');
+    };
 };
 init();
 /*----------------------------- Event Listeners -----------------------------*/
